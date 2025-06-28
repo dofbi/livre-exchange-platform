@@ -1,0 +1,311 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+// Sample forum data
+const forumCategories = [
+  {
+    id: 1,
+    title: "Discussions générales",
+    description: "Parlez de tout ce qui concerne l'échange de livres",
+    icon: "💬",
+    topics: 45,
+    posts: 234,
+    lastPost: {
+      title: "Conseils pour bien emballer les livres",
+      author: "Aminata D.",
+      time: "Il y a 2 heures"
+    }
+  },
+  {
+    id: 2,
+    title: "Aide et questions",
+    description: "Besoin d'aide ? Posez vos questions ici",
+    icon: "❓",
+    topics: 28,
+    posts: 156,
+    lastPost: {
+      title: "Comment calculer la valeur en points ?",
+      author: "Moussa S.",
+      time: "Il y a 4 heures"
+    }
+  },
+  {
+    id: 3,
+    title: "Échanges par région",
+    description: "Organisez vos échanges par région",
+    icon: "🗺️",
+    topics: 67,
+    posts: 389,
+    lastPost: {
+      title: "Échange à Pikine ce weekend",
+      author: "Fatou K.",
+      time: "Il y a 1 heure"
+    }
+  },
+  {
+    id: 4,
+    title: "Recommandations",
+    description: "Partagez vos avis sur les livres",
+    icon: "⭐",
+    topics: 34,
+    posts: 198,
+    lastPost: {
+      title: "Meilleurs livres de maths pour la Terminale",
+      author: "Omar B.",
+      time: "Il y a 6 heures"
+    }
+  }
+]
+
+const recentTopics = [
+  {
+    title: "Quels livres pour le CM1 cette année ?",
+    author: "Aminata D.",
+    replies: 12,
+    views: 89,
+    lastReply: "Il y a 2 heures",
+    category: "Discussions générales"
+  },
+  {
+    title: "Échange à Pikine, qui est dispo ?",
+    author: "Moussa S.",
+    replies: 8,
+    views: 45,
+    lastReply: "Il y a 4 heures",
+    category: "Échanges par région"
+  },
+  {
+    title: "Conseils pour l'état des livres",
+    author: "Fatou K.",
+    replies: 15,
+    views: 123,
+    lastReply: "Il y a 1 jour",
+    category: "Aide et questions"
+  },
+  {
+    title: "Livres de sciences pour la 1ère S",
+    author: "Omar B.",
+    replies: 6,
+    views: 67,
+    lastReply: "Il y a 2 jours",
+    category: "Recommandations"
+  }
+]
+---
+
+<Layout title="Forums - LivreExchange">
+  <!-- Page Header -->
+  <section class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">
+          Forums de la communauté
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Échangez avec d'autres parents et élèves, posez vos questions et partagez vos expériences
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold inline-flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Nouveau sujet
+          </button>
+          <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold inline-flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            Rechercher
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forum Categories -->
+  <section class="py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Catégories</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        {forumCategories.map(category => (
+          <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+            <div class="p-6">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center">
+                  <div class="text-3xl mr-4">{category.icon}</div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                      <a href={`/forums/${category.id}`} class="hover:text-green-600">
+                        {category.title}
+                      </a>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                      {category.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between text-sm text-gray-500 mt-4 pt-4 border-t">
+                <div class="flex space-x-4">
+                  <span>{category.topics} sujets</span>
+                  <span>{category.posts} messages</span>
+                </div>
+                <div class="text-right">
+                  <div class="font-medium text-gray-900">{category.lastPost.title}</div>
+                  <div>par {category.lastPost.author} • {category.lastPost.time}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Recent Topics -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4 bg-gray-50 border-b">
+          <h2 class="text-xl font-semibold text-gray-900">Discussions récentes</h2>
+        </div>
+        
+        <div class="divide-y divide-gray-200">
+          {recentTopics.map(topic => (
+            <div class="p-6 hover:bg-gray-50 transition-colors">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <h3 class="text-lg font-medium text-gray-900 mb-2">
+                    <a href="#" class="hover:text-green-600">
+                      {topic.title}
+                    </a>
+                  </h3>
+                  <div class="flex items-center text-sm text-gray-500 space-x-4">
+                    <span>par <strong>{topic.author}</strong></span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                      {topic.category}
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="flex items-center space-x-6 text-sm text-gray-500">
+                  <div class="text-center">
+                    <div class="font-medium text-gray-900">{topic.replies}</div>
+                    <div>réponses</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="font-medium text-gray-900">{topic.views}</div>
+                    <div>vues</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="font-medium text-gray-900">Dernière réponse</div>
+                    <div>{topic.lastReply}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div class="px-6 py-4 bg-gray-50 border-t text-center">
+          <a href="#" class="text-green-600 hover:text-green-700 font-semibold">
+            Voir toutes les discussions →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Stats -->
+  <section class="bg-green-600 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold mb-4">Statistiques de la communauté</h2>
+        <p class="text-green-100">Une communauté active et bienveillante</p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl font-bold mb-2">342</div>
+          <div class="text-green-100">Membres actifs</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold mb-2">174</div>
+          <div class="text-green-100">Sujets de discussion</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold mb-2">1,247</div>
+          <div class="text-green-100">Messages postés</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold mb-2">89</div>
+          <div class="text-green-100">Échanges ce mois</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forum Rules -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+          Règles de la communauté
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="text-green-600 text-xl mr-3">✅</div>
+              <div>
+                <h3 class="font-semibold text-gray-900">Soyez respectueux</h3>
+                <p class="text-gray-600 text-sm">Traitez tous les membres avec courtoisie et respect</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="text-green-600 text-xl mr-3">✅</div>
+              <div>
+                <h3 class="font-semibold text-gray-900">Restez dans le sujet</h3>
+                <p class="text-gray-600 text-sm">Gardez vos messages pertinents au sujet de discussion</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="text-green-600 text-xl mr-3">✅</div>
+              <div>
+                <h3 class="font-semibold text-gray-900">Aidez les autres</h3>
+                <p class="text-gray-600 text-sm">Partagez vos connaissances et expériences</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="text-red-600 text-xl mr-3">❌</div>
+              <div>
+                <h3 class="font-semibold text-gray-900">Pas de spam</h3>
+                <p class="text-gray-600 text-sm">Évitez les messages répétitifs ou publicitaires</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="text-red-600 text-xl mr-3">❌</div>
+              <div>
+                <h3 class="font-semibold text-gray-900">Pas de contenu inapproprié</h3>
+                <p class="text-gray-600 text-sm">Gardez le contenu adapté à tous les âges</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="text-red-600 text-xl mr-3">❌</div>
+              <div>
+                <h3 class="font-semibold text-gray-900">Pas d'informations personnelles</h3>
+                <p class="text-gray-600 text-sm">Ne partagez pas d'informations privées</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

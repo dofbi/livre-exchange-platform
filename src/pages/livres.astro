@@ -1,0 +1,230 @@
+---
+import Layout from '../layouts/Layout.astro'
+import BookCard from '../components/BookCard.astro'
+import SearchFilters from '../components/SearchFilters.astro'
+
+// Sample data - in a real app, this would come from Supabase
+const sampleBooks = [
+  {
+    id: '1',
+    title: 'Français CM2',
+    author: 'Hachette Education',
+    condition: 'Bon',
+    points: 50,
+    level: 'Primaire',
+    subject: 'Français',
+    isbn: '978-2-01-125456-7'
+  },
+  {
+    id: '2',
+    title: 'Mathématiques 2nde',
+    author: 'Bordas',
+    condition: 'Neuf',
+    points: 80,
+    level: 'Lycée',
+    subject: 'Mathématiques',
+    isbn: '978-2-01-125457-4'
+  },
+  {
+    id: '3',
+    title: 'Histoire-Géographie Collège',
+    author: 'Nathan',
+    condition: 'Usagé',
+    points: 30,
+    level: 'Collège',
+    subject: 'Histoire-Géographie',
+    isbn: '978-2-01-125458-1'
+  },
+  {
+    id: '4',
+    title: 'Sciences Physiques 1ère',
+    author: 'Hachette',
+    condition: 'Bon',
+    points: 65,
+    level: 'Lycée',
+    subject: 'Sciences',
+    isbn: '978-2-01-125459-8'
+  },
+  {
+    id: '5',
+    title: 'Anglais 6ème',
+    author: 'Bordas',
+    condition: 'Neuf',
+    points: 45,
+    level: 'Collège',
+    subject: 'Anglais',
+    isbn: '978-2-01-125460-4'
+  },
+  {
+    id: '6',
+    title: 'Géométrie Terminale S',
+    author: 'Nathan',
+    condition: 'Bon',
+    points: 70,
+    level: 'Lycée',
+    subject: 'Mathématiques',
+    isbn: '978-2-01-125461-1'
+  }
+]
+
+// Get search parameters
+const url = new URL(Astro.request.url)
+const searchQuery = url.searchParams.get('q') || ''
+const niveauFilter = url.searchParams.get('niveau') || ''
+const matiereFilter = url.searchParams.get('matiere') || ''
+const regionFilter = url.searchParams.get('region') || ''
+const etatFilter = url.searchParams.get('etat') || ''
+
+// Filter books based on search parameters
+let filteredBooks = sampleBooks
+
+if (searchQuery) {
+  filteredBooks = filteredBooks.filter(book => 
+    book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    book.isbn.includes(searchQuery)
+  )
+}
+
+if (niveauFilter) {
+  filteredBooks = filteredBooks.filter(book => 
+    book.level.toLowerCase().includes(niveauFilter.toLowerCase())
+  )
+}
+
+if (matiereFilter) {
+  filteredBooks = filteredBooks.filter(book => 
+    book.subject.toLowerCase().includes(matiereFilter.toLowerCase())
+  )
+}
+
+if (etatFilter) {
+  filteredBooks = filteredBooks.filter(book => 
+    book.condition.toLowerCase().includes(etatFilter.toLowerCase())
+  )
+}
+---
+
+<Layout title="Catalogue des livres - LivreExchange">
+  <!-- Page Header -->
+  <section class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">
+            Catalogue des livres
+          </h1>
+          <p class="mt-2 text-gray-600">
+            Trouvez le livre parfait pour vos études
+          </p>
+        </div>
+        <div class="mt-4 md:mt-0">
+          <a href="/ajouter" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold inline-flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Ajouter un livre
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search and Filters -->
+  <section class="bg-gray-50 border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <SearchFilters 
+        searchQuery={searchQuery}
+        niveauFilter={niveauFilter}
+        matiereFilter={matiereFilter}
+        regionFilter={regionFilter}
+        etatFilter={etatFilter}
+      />
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Results Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">
+            {filteredBooks.length} livre{filteredBooks.length !== 1 ? 's' : ''} trouvé{filteredBooks.length !== 1 ? 's' : ''}
+          </h2>
+          {(searchQuery || niveauFilter || matiereFilter || regionFilter || etatFilter) && (
+            <p class="text-sm text-gray-600 mt-1">
+              Filtres actifs: 
+              {searchQuery && <span class="ml-1 bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">"{searchQuery}"</span>}
+              {niveauFilter && <span class="ml-1 bg-green-100 text-green-800 px-2 py-1 rounded text-xs">{niveauFilter}</span>}
+              {matiereFilter && <span class="ml-1 bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">{matiereFilter}</span>}
+              {regionFilter && <span class="ml-1 bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">{regionFilter}</span>}
+              {etatFilter && <span class="ml-1 bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">{etatFilter}</span>}
+            </p>
+          )}
+        </div>
+        
+        <div class="mt-4 sm:mt-0">
+          <select class="border border-gray-300 rounded-md px-3 py-2 text-sm">
+            <option>Trier par: Plus récents</option>
+            <option>Prix croissant</option>
+            <option>Prix décroissant</option>
+            <option>Alphabétique</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Books Grid -->
+      {filteredBooks.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredBooks.map(book => (
+            <BookCard 
+              title={book.title}
+              author={book.author}
+              condition={book.condition}
+              points={book.points}
+              level={book.level}
+              subject={book.subject}
+              isbn={book.isbn}
+              id={book.id}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.5-.816-6.207-2.18C5.075 12.227 4.5 11.43 4.5 10.5c0-.93.575-1.727 1.293-2.32A7.962 7.962 0 0112 6c2.34 0 4.5.816 6.207 2.18.718.593 1.293 1.39 1.293 2.32 0 .93-.575 1.727-1.293 2.32A7.962 7.962 0 0112 15z" />
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">Aucun livre trouvé</h3>
+          <p class="mt-1 text-sm text-gray-500">
+            Essayez de modifier vos critères de recherche ou 
+            <a href="/ajouter" class="text-green-600 hover:text-green-700">ajoutez le premier livre</a>.
+          </p>
+        </div>
+      )}
+
+      <!-- Pagination -->
+      {filteredBooks.length > 12 && (
+        <div class="mt-12 flex justify-center">
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+              <span class="sr-only">Précédent</span>
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">1</a>
+            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
+            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">3</a>
+            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+              <span class="sr-only">Suivant</span>
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </nav>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,75 @@
+---
+// Quick filters component for the home page
+---
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Niveau Filter -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Niveau</h3>
+    <div class="space-y-2">
+      <a href="/livres?niveau=primaire" class="block w-full text-left px-4 py-2 rounded-md bg-green-50 hover:bg-green-100 text-green-700 transition-colors">
+        📚 Primaire
+      </a>
+      <a href="/livres?niveau=college" class="block w-full text-left px-4 py-2 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 transition-colors">
+        🎓 Collège
+      </a>
+      <a href="/livres?niveau=lycee" class="block w-full text-left px-4 py-2 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-700 transition-colors">
+        🏫 Lycée
+      </a>
+    </div>
+  </div>
+
+  <!-- Matière Filter -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Matière</h3>
+    <div class="space-y-2">
+      <a href="/livres?matiere=francais" class="block w-full text-left px-4 py-2 rounded-md bg-red-50 hover:bg-red-100 text-red-700 transition-colors">
+        📝 Français
+      </a>
+      <a href="/livres?matiere=maths" class="block w-full text-left px-4 py-2 rounded-md bg-indigo-50 hover:bg-indigo-100 text-indigo-700 transition-colors">
+        🔢 Maths
+      </a>
+      <a href="/livres?matiere=sciences" class="block w-full text-left px-4 py-2 rounded-md bg-teal-50 hover:bg-teal-100 text-teal-700 transition-colors">
+        🔬 Sciences
+      </a>
+      <a href="/livres?matiere=histoire" class="block w-full text-left px-4 py-2 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-700 transition-colors">
+        🏛️ Histoire-Géo
+      </a>
+      <a href="/livres?matiere=anglais" class="block w-full text-left px-4 py-2 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-colors">
+        🇬🇧 Anglais
+      </a>
+    </div>
+  </div>
+
+  <!-- Région Filter -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Région</h3>
+    <div class="space-y-2">
+      <a href="/livres?region=dakar" class="block w-full text-left px-4 py-2 rounded-md bg-orange-50 hover:bg-orange-100 text-orange-700 transition-colors">
+        🏙️ Dakar
+      </a>
+      <a href="/livres?region=thies" class="block w-full text-left px-4 py-2 rounded-md bg-cyan-50 hover:bg-cyan-100 text-cyan-700 transition-colors">
+        🌊 Thiès
+      </a>
+      <a href="/livres?region=saint-louis" class="block w-full text-left px-4 py-2 rounded-md bg-pink-50 hover:bg-pink-100 text-pink-700 transition-colors">
+        🏰 Saint-Louis
+      </a>
+      <a href="/livres?region=kaolack" class="block w-full text-left px-4 py-2 rounded-md bg-lime-50 hover:bg-lime-100 text-lime-700 transition-colors">
+        🌾 Kaolack
+      </a>
+      <a href="/livres?region=ziguinchor" class="block w-full text-left px-4 py-2 rounded-md bg-violet-50 hover:bg-violet-100 text-violet-700 transition-colors">
+        🌴 Ziguinchor
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Advanced Search Link -->
+<div class="mt-8 text-center">
+  <a href="/livres" class="inline-flex items-center px-6 py-3 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-50 transition-colors">
+    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+    Recherche avancée avec tous les filtres
+  </a>
+</div>

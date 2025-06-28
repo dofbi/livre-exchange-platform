@@ -1,0 +1,110 @@
+---
+import '../styles/global.css'
+
+export interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = "Plateforme d'échange de livres scolaires au Sénégal" } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <header class="bg-white shadow-sm border-b">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a href="/" class="text-2xl font-bold text-green-600">
+              📚 LivreExchange
+            </a>
+          </div>
+          
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a href="/" class="text-gray-900 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
+                Accueil
+              </a>
+              <a href="/livres" class="text-gray-900 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
+                Livres
+              </a>
+              <a href="/forums" class="text-gray-900 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
+                Forums
+              </a>
+              <a href="/profil" class="text-gray-900 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
+                Profil
+              </a>
+            </div>
+          </div>
+          
+          <div class="flex items-center space-x-4">
+            <div class="hidden md:flex items-center space-x-2 bg-green-100 px-3 py-1 rounded-full">
+              <span class="text-green-800 font-medium">💰 120 points</span>
+            </div>
+            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+              Connexion
+            </button>
+          </div>
+          
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button type="button" class="text-gray-900 hover:text-green-600">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="col-span-1 md:col-span-2">
+            <h3 class="text-lg font-semibold mb-4">📚 LivreExchange</h3>
+            <p class="text-gray-300 mb-4">
+              La plateforme d'échange de livres scolaires qui connecte les parents et élèves du Sénégal.
+              Échangez, vendez et trouvez les livres dont vous avez besoin facilement.
+            </p>
+          </div>
+          
+          <div>
+            <h4 class="text-md font-semibold mb-4">Navigation</h4>
+            <ul class="space-y-2 text-gray-300">
+              <li><a href="/" class="hover:text-white">Accueil</a></li>
+              <li><a href="/livres" class="hover:text-white">Catalogue</a></li>
+              <li><a href="/forums" class="hover:text-white">Forums</a></li>
+              <li><a href="/profil" class="hover:text-white">Mon Profil</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-md font-semibold mb-4">Support</h4>
+            <ul class="space-y-2 text-gray-300">
+              <li><a href="/aide" class="hover:text-white">Centre d'aide</a></li>
+              <li><a href="/contact" class="hover:text-white">Contact</a></li>
+              <li><a href="/conditions" class="hover:text-white">Conditions</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-300">
+          <p>&copy; 2025 LivreExchange. Tous droits réservés.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro'
+import AddBookForm from '../components/AddBookForm.tsx'
+---
+
+<Layout title="Ajouter un livre - LivreExchange">
+  <!-- Page Header -->
+  <section class="bg-white border-b">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">
+          Ajouter un livre
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Partagez vos livres avec la communauté et gagnez des points !
+        </p>
+        
+        <!-- Benefits -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div class="bg-green-50 p-4 rounded-lg">
+            <div class="text-green-600 text-2xl mb-2">💰</div>
+            <h3 class="font-semibold text-green-800">Gagnez 5 points</h3>
+            <p class="text-sm text-green-600">Pour chaque livre ajouté</p>
+          </div>
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <div class="text-blue-600 text-2xl mb-2">🤝</div>
+            <h3 class="font-semibold text-blue-800">Aidez la communauté</h3>
+            <p class="text-sm text-blue-600">Facilitez l'accès aux livres</p>
+          </div>
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <div class="text-purple-600 text-2xl mb-2">♻️</div>
+            <h3 class="font-semibold text-purple-800">Économie circulaire</h3>
+            <p class="text-sm text-purple-600">Donnez une seconde vie</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <AddBookForm client:load />
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips Section -->
+  <section class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        Conseils pour un bon échange
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-green-500">
+          <h3 class="font-semibold text-gray-900 mb-3">📸 Photos de qualité</h3>
+          <ul class="text-sm text-gray-600 space-y-2">
+            <li>• Prenez des photos claires et bien éclairées</li>
+            <li>• Montrez la couverture et l'état général</li>
+            <li>• Incluez les pages importantes si nécessaire</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-500">
+          <h3 class="font-semibold text-gray-900 mb-3">📝 Description précise</h3>
+          <ul class="text-sm text-gray-600 space-y-2">
+            <li>• Indiquez l'état réel du livre</li>
+            <li>• Mentionnez les annotations éventuelles</li>
+            <li>• Précisez l'édition et l'année</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-purple-500">
+          <h3 class="font-semibold text-gray-900 mb-3">💰 Prix équitable</h3>
+          <ul class="text-sm text-gray-600 space-y-2">
+            <li>• Consultez les prix similaires</li>
+            <li>• Adaptez selon l'état du livre</li>
+            <li>• Soyez raisonnable pour faciliter l'échange</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-orange-500">
+          <h3 class="font-semibold text-gray-900 mb-3">⚡ Réactivité</h3>
+          <ul class="text-sm text-gray-600 space-y-2">
+            <li>• Répondez rapidement aux demandes</li>
+            <li>• Organisez l'échange dans les délais</li>
+            <li>• Communiquez clairement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
